@@ -1,16 +1,18 @@
-import * as React from 'react';
+import * as React from 'react'
 
 export interface Props {
-  name: string;
-  enthusiasmLevel: number;
+  name: string
+  enthusiasmLevel?: number
+  onIncrement?: () => void
+  onDecrement?: () => void
 }
 
 class Hello extends React.Component<Props, object> {
   render() {
-    const { name, enthusiasmLevel = 1 } = this.props
+    const { name, enthusiasmLevel = 1, onIncrement, onDecrement } = this.props
 
     if (enthusiasmLevel <= 0) {
-      throw new Error('You could be a little more enthusiastic. :D');
+      throw new Error('You could be a little more enthusiastic. :D')
     }
 
     return (
@@ -18,14 +20,18 @@ class Hello extends React.Component<Props, object> {
         <div className="greeting">
           Hello {name + getExclamationMarks(enthusiasmLevel)}
         </div>
+        <div>
+          <button onClick={onIncrement}>+</button>
+          <button onClick={onDecrement}>-</button>
+        </div>
       </div>
     )
   }
 }
 
-export default Hello;
+export default Hello
 
 // helpers
 function getExclamationMarks(numChars: number) {
-  return Array(numChars + 1).join('!');
+  return Array(numChars + 1).join('!')
 }
